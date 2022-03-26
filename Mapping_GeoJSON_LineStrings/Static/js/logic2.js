@@ -63,23 +63,21 @@ let map = L.map('mapid', {
 // use control.layers to add both layers to the map
 L.control.layers(baseMaps).addTo(map);
 
-
+//styling for lines
+let myStyle = {color: 'yellow',
+weight:2};
 // airport url
 let torontoData = "https://raw.githubusercontent.com/MDaily7/Mapping_Earthquakes/main/torontoRoutes.json";
-// style variable for the geoJSON data
-let myStyle = {color: 'yellow', 
-weight: 2}
 //use d3.json to access the data and then add the geoJSON() layer
 d3.json(torontoData).then(function(data) {
     console.log(data);
     L.geoJSON(data, {style: myStyle,
-    onEachFeature: function(feature, layer) {
-        console.log(layer);
-        layer.bindPopup(`<h2>Airline:${feature.properties.airline}</h2><hr><h3>Destination:${feature.properties.dst}</h3>`)
-        .addTo(map);
-    }
-})
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(`<h2>Airport:${feature.properties.airport}</h2><hr><h3>Destination:${feature.properties.dst}</h3>`);
+            
+        }
+    }).addTo(map)
 });
-     
-    
+        
+
 
