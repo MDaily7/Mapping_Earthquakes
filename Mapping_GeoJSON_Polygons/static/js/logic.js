@@ -42,7 +42,7 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
     accessToken: API_KEY
 });
 // dark layer
-let setellite = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+let satellite = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     accessToken: API_KEY
@@ -57,17 +57,17 @@ let baseMaps = {
 // create a map object with a center and a zoom level
 let map = L.map('mapid', {
     center: [43.7, -79.3],
-    zoom: 2,
+    zoom: 11,
     layers: [streets]
 });
 // use control.layers to add both layers to the map
 L.control.layers(baseMaps).addTo(map);
 
-
+let myStyle = {fillColor: 'yellow', weight: 1, linecolor:'blue'}
 // airport url
 let torontoHoods = "https://raw.githubusercontent.com/MDaily7/Mapping_Earthquakes/main/torontoNeighborhoods.json";
 //use d3.json to access the data and then add the geoJSON() layer
 d3.json(torontoHoods).then(function(data) {
     console.log(data);
-    L.geoJSON(data).addTo(map);});
+    L.geoJSON(data, {style:myStyle, onEachFeature: function(feature,layer) {console.log(layer); layer.bindPopup(`<h2> ${feature.properties.AREA_NAME}`)}}).addTo(map)});
 
