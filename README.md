@@ -9,6 +9,6 @@ was used to retrieve the data for each of the overlays from various url's, and t
 added to the map with radii and color determined by the magnitude of the earthquake. The tectonic plate data was simply styled by line color and weight. 
 ## Resources
 * [Mapbox](https://www.mapbox.com/) (where the api key is obtained and used for map data)
-* [HTML]() 
-* [JS]()
+* [HTML](https://github.com/MDaily7/Mapping_Earthquakes/blob/main/Earthquake_Challenge/index.html) 
+* [JS](https://github.com/MDaily7/Mapping_Earthquakes/blob/main/Earthquake_Challenge/static/js/challenge_logic.js)
 
