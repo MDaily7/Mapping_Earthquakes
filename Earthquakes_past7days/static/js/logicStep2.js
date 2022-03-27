@@ -62,13 +62,36 @@ let map = L.map('mapid', {
 });
 // use control.layers to add both layers to the map
 L.control.layers(baseMaps).addTo(map);
+// function for setting the style for each earthquake plotted
+function styleInfo(feature) {
+    return {
+        opacity:1,
+        fillOpacity: 1,
+        fillColor: "#ffae42",
+        color:"#000000",
+        radius:getRadius(feature.properties.mag),
+        stroke:true,
+        weight:0.5
 
-let myStyle = {fillColor: 'yellow', weight: 1, linecolor:'blue'}
+    };
+};
+// getRadius function 
+function getRadius(magnitude) {
+    if (magnitude === 0) {
+        return 1;
+    };
+    return magnitude * 4;
+};
 // airport url
 let earthquakes = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 //use d3.json to access the data and then add the geoJSON() layer
 d3.json(earthquakes).then(function(data) {
     console.log(data);
-    L.geoJSON(data).addTo(map)});
+    L.geoJSON(data, {style: styleInfo,
+        pointToLayer: function(feature, latlng){
+        console.log(data);
+        return L.circleMarker(latlng);
+        
+    }}).addTo(map);});
 
 
