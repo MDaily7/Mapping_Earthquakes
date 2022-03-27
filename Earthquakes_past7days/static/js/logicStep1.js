@@ -56,8 +56,8 @@ let baseMaps = {
 
 // create a map object with a center and a zoom level
 let map = L.map('mapid', {
-    center: [43.7, -79.3],
-    zoom: 11,
+    center: [39.5, -98.5],
+    zoom: 3,
     layers: [streets]
 });
 // use control.layers to add both layers to the map
@@ -65,10 +65,11 @@ L.control.layers(baseMaps).addTo(map);
 
 let myStyle = {fillColor: 'yellow', weight: 1, linecolor:'blue'}
 // airport url
-let torontoHoods = "https://raw.githubusercontent.com/MDaily7/Mapping_Earthquakes/main/torontoNeighborhoods.json";
+let earthquakes = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 //use d3.json to access the data and then add the geoJSON() layer
-d3.json(torontoHoods).then(function(data) {
+d3.json(earthquakes).then(function(data) {
     console.log(data);
-    L.geoJSON(data, {style:myStyle, onEachFeature: function(feature,layer) {console.log(layer); layer.bindPopup(`<h2> ${feature.properties.AREA_NAME}`)}}).addTo(map)});
+    L.geoJSON(data).addTo(map);
+});
 
 
